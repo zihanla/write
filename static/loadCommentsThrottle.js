@@ -20,7 +20,7 @@ var loadScript = throttle(function () {
     var commentsRect = comments.getBoundingClientRect();
     if (commentsRect.top <= window.innerHeight) {
         var script = document.createElement("script");
-        script.src = "https://cusdis.hyx.ink/js/cusdis.es.js";
+        script.src = "https://cusdis.com/js/cusdis.es.js";
         script.async = true;
         script.defer = true;
         document.body.appendChild(script);
