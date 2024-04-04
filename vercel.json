@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/post/:slug", "destination": "/post/:slug.html" },
+    { "source": "/about", "destination": "/about.html" }
+  ]
+}
