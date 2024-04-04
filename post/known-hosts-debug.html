@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="'&gt; 提交代码到 github，出现 ssh
+报错，无法识别主机'" name="description"/>
+  <link href="../static/style.css" rel="stylesheet"/>
+  <title>
+   ssh报错不识别known_hosts中原有的主机
+  </title>
+  <style>
+   header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+  </style>
+ </head>
+ <body>
+  <!-- 头部 -->
+  <header>
+   <h1>
+    ssh报错不识别known_hosts中原有的主机
+   </h1>
+   <a href="/">
+    子涵
+   </a>
+   <span>
+    2022-09-11
+   </span>
+  </header>
+  <!-- 文章 -->
+  <article>
+   <blockquote>
+    <p>
+     提交代码到 github，出现 ssh 报错，无法识别主机
+    </p>
+   </blockquote>
+   <h2 id="报错信息">
+    报错信息
+   </h2>
+   <pre><code>@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
+Someone could be eavesdropping on you right now (man-in-the-middle attack)!
+It is also possible that a host key has just been changed.
+The fingerprint for the ECDSA key sent by the remote host is
+Please contact your system administrator.
+Add correct host key in /root/.ssh/known_hosts to get rid of this message.
+Offending ECDSA key in /root/.ssh/known_hosts:12
+ECDSA host key for xxx has changed and you have requested strict checking.
+Host key verification failed.
+</code></pre>
+   <h2 id="解决方案">
+    解决方案
+   </h2>
+   <blockquote>
+    <p>
+     根据提示 /root/.ssh/known_hosts to get rid of this message
+    </p>
+   </blockquote>
+   <p>
+    删除 /root/.ssh/ 下的 known_hosts 文件
+   </p>
+   <p>
+    Tips:
+删除后本地仓库无法找到远程仓库，需要重新从远程仓库拉取一下
+   </p>
+  </article>
+  <!-- 评论 -->
+  <section id="comments" style="margin-top: 36px">
+   <div data-app-id="c9edfd1e-80eb-4f19-bedc-69c5faea5a6d" data-host="https://cusdis.hyx.ink" data-page-id="known-hosts-debug" data-page-title="ssh报错不识别known_hosts中原有的主机" data-page-url="https://hyx.ink/post/known-hosts-debug" id="cusdis_thread">
+   </div>
+  </section>
+  <!-- 页脚 -->
+  <footer style="margin-top: 10px">
+   <p>
+    <span id="copyright">
+     © 2021-
+     <span id="current-year">
+     </span>
+     子涵
+    </span>
+    <a href="/rss.xml" target="_blank">
+     RSS
+    </a>
+   </p>
+  </footer>
+  <!-- 获取时间 -->
+  <script>
+   document.addEventListener("DOMContentLoaded", function () {
+        const currentYearSpan = document.getElementById("current-year");
+        currentYearSpan.textContent = new Date().getFullYear();
+      });
+  </script>
+  <!-- 网站统计 -->
+  <script async="" data-website-id="720737d7-b1e8-4e9f-926c-133409d58810" src="https://umami.hyx.ink/script.js">
+  </script>
+  <!-- 评论加载 -->
+  <script src="../static/loadCommentsThrottle.js">
+  </script>
+ </body>
+</html>

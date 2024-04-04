@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="'&gt; 借助 bee
+命令行工具的热编译功能，结果无法找到命令 bee
+命令，还好我面向搜索引擎..'" name="description"/>
+  <link href="../static/style.css" rel="stylesheet"/>
+  <title>
+   bee工具踩坑
+  </title>
+  <style>
+   header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+  </style>
+ </head>
+ <body>
+  <!-- 头部 -->
+  <header>
+   <h1>
+    bee工具踩坑
+   </h1>
+   <a href="/">
+    子涵
+   </a>
+   <span>
+    2022-10-01
+   </span>
+  </header>
+  <!-- 文章 -->
+  <article>
+   <blockquote>
+    <p>
+     借助 bee 命令行工具的热编译功能，结果无法找到命令 bee
+命令，还好我面向搜索引擎…
+    </p>
+   </blockquote>
+   <p>
+    bee 是用来进行 beego
+项目(普通项目也可以使用)的创建、热编译、开发、测试、和部署的工具。
+   </p>
+   <p>
+    我是按照 bee 官方文档进行部署的，pkg 中有 beego 包的，结果输入 bee
+无法找到命令，索性搜索引擎提供了解决方案。
+   </p>
+   <div class="sourceCode" id="cb1">
+    <pre class="sourceCode go"><code class="sourceCode go"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="co">// 通过 go env 找到path路径 进入 pkg\mod\github.com\beego\bee\vx@vx.x.x</span></span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a><span class="co">// 在vx@vx.x.x目录下 打开终端 依次输入以下命令 对bee进行编译</span></span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a>    <span class="cf">go</span> mod tidy  <span class="co">// 整理bee文件</span></span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a>    <span class="cf">go</span> install <span class="co">// 编译bee</span></span></code></pre>
+   </div>
+   <p>
+    编译后只要配置过 gopath ，就可以在任意位置使用 bee
+工具了。
+   </p>
+  </article>
+  <!-- 评论 -->
+  <section id="comments" style="margin-top: 36px">
+   <div data-app-id="c9edfd1e-80eb-4f19-bedc-69c5faea5a6d" data-host="https://cusdis.hyx.ink" data-page-id="bee-debug" data-page-title="bee工具踩坑" data-page-url="https://hyx.ink/post/bee-debug" id="cusdis_thread">
+   </div>
+  </section>
+  <!-- 页脚 -->
+  <footer style="margin-top: 10px">
+   <p>
+    <span id="copyright">
+     © 2021-
+     <span id="current-year">
+     </span>
+     子涵
+    </span>
+    <a href="/rss.xml" target="_blank">
+     RSS
+    </a>
+   </p>
+  </footer>
+  <!-- 获取时间 -->
+  <script>
+   document.addEventListener("DOMContentLoaded", function () {
+        const currentYearSpan = document.getElementById("current-year");
+        currentYearSpan.textContent = new Date().getFullYear();
+      });
+  </script>
+  <!-- 网站统计 -->
+  <script async="" data-website-id="720737d7-b1e8-4e9f-926c-133409d58810" src="https://umami.hyx.ink/script.js">
+  </script>
+  <!-- 评论加载 -->
+  <script src="../static/loadCommentsThrottle.js">
+  </script>
+ </body>
+</html>

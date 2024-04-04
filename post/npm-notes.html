@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="'### npm 配置镜像源'" name="description"/>
+  <link href="../static/style.css" rel="stylesheet"/>
+  <title>
+   npm日常笔记
+  </title>
+  <style>
+   header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+  </style>
+ </head>
+ <body>
+  <!-- 头部 -->
+  <header>
+   <h1>
+    npm日常笔记
+   </h1>
+   <a href="/">
+    子涵
+   </a>
+   <span>
+    2022-10-15
+   </span>
+  </header>
+  <!-- 文章 -->
+  <article>
+   <h3 id="npm-配置镜像源">
+    npm 配置镜像源
+   </h3>
+   <div class="sourceCode" id="cb1">
+    <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="ex">//</span> 配置npm全局源</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a><span class="ex">npm</span> config set registry registry.npmmirror.com</span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a><span class="ex">//</span> 查看npm源地址</span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a><span class="ex">npm</span> config get registry</span></code></pre>
+   </div>
+   <h3 id="使用-nrm-管理-npm-镜像源推荐">
+    使用 nrm 管理 npm
+镜像源(推荐)
+   </h3>
+   <blockquote>
+    <p>
+     nrm 只修改的是源地址，仍使用 npm 的方式管理包
+    </p>
+   </blockquote>
+   <div class="sourceCode" id="cb2">
+    <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a><span class="ex">//</span> 全局安装</span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a><span class="ex">npm</span> i nrm <span class="at">-g</span></span>
+<span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a><span class="ex">//</span> 查看版本号</span>
+<span id="cb2-4"><a aria-hidden="true" href="#cb2-4" tabindex="-1"></a><span class="ex">nrm</span> <span class="at">-V</span></span>
+<span id="cb2-5"><a aria-hidden="true" href="#cb2-5" tabindex="-1"></a><span class="ex">//</span> 查看所有源</span>
+<span id="cb2-6"><a aria-hidden="true" href="#cb2-6" tabindex="-1"></a><span class="ex">nrm</span> list</span>
+<span id="cb2-7"><a aria-hidden="true" href="#cb2-7" tabindex="-1"></a><span class="ex">//</span> 换源</span>
+<span id="cb2-8"><a aria-hidden="true" href="#cb2-8" tabindex="-1"></a><span class="ex">nrm</span> use 源名称</span>
+<span id="cb2-9"><a aria-hidden="true" href="#cb2-9" tabindex="-1"></a><span class="ex">//</span> 添加</span>
+<span id="cb2-10"><a aria-hidden="true" href="#cb2-10" tabindex="-1"></a><span class="ex">nrm</span> add 源名称 源地址</span>
+<span id="cb2-11"><a aria-hidden="true" href="#cb2-11" tabindex="-1"></a><span class="ex">//</span> 删除</span>
+<span id="cb2-12"><a aria-hidden="true" href="#cb2-12" tabindex="-1"></a><span class="ex">nrm</span> del 源名称</span>
+<span id="cb2-13"><a aria-hidden="true" href="#cb2-13" tabindex="-1"></a><span class="ex">//</span> 测试指定源响应速度</span>
+<span id="cb2-14"><a aria-hidden="true" href="#cb2-14" tabindex="-1"></a><span class="ex">nrm</span> test 源名称</span></code></pre>
+   </div>
+   <h3 id="npm-基本使用">
+    npm 基本使用
+   </h3>
+   <div class="sourceCode" id="cb3">
+    <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a><span class="ex">//</span> 初始化项目包管理<span class="er">(</span><span class="ex">package.json</span><span class="kw">)</span></span>
+<span id="cb3-2"><a aria-hidden="true" href="#cb3-2" tabindex="-1"></a><span class="ex">npm</span> inint <span class="at">-y</span></span>
+<span id="cb3-3"><a aria-hidden="true" href="#cb3-3" tabindex="-1"></a><span class="ex">//</span> 当在package中修改依赖版本后需要下载</span>
+<span id="cb3-4"><a aria-hidden="true" href="#cb3-4" tabindex="-1"></a><span class="ex">npm</span> install</span>
+<span id="cb3-5"><a aria-hidden="true" href="#cb3-5" tabindex="-1"></a><span class="ex">//</span> 忽略模块相同，版本不同，继续安装</span>
+<span id="cb3-6"><a aria-hidden="true" href="#cb3-6" tabindex="-1"></a><span class="ex">--legacy-peer-deps</span></span>
+<span id="cb3-7"><a aria-hidden="true" href="#cb3-7" tabindex="-1"></a><span class="ex">//例如：</span></span>
+<span id="cb3-8"><a aria-hidden="true" href="#cb3-8" tabindex="-1"></a><span class="ex">npm</span> i cz-customizable@6.3.0 <span class="at">--save-dev</span> <span class="at">--legacy-peer-deps</span></span></code></pre>
+   </div>
+  </article>
+  <!-- 评论 -->
+  <section id="comments" style="margin-top: 36px">
+   <div data-app-id="c9edfd1e-80eb-4f19-bedc-69c5faea5a6d" data-host="https://cusdis.hyx.ink" data-page-id="npm-notes" data-page-title="npm日常笔记" data-page-url="https://hyx.ink/post/npm-notes" id="cusdis_thread">
+   </div>
+  </section>
+  <!-- 页脚 -->
+  <footer style="margin-top: 10px">
+   <p>
+    <span id="copyright">
+     © 2021-
+     <span id="current-year">
+     </span>
+     子涵
+    </span>
+    <a href="/rss.xml" target="_blank">
+     RSS
+    </a>
+   </p>
+  </footer>
+  <!-- 获取时间 -->
+  <script>
+   document.addEventListener("DOMContentLoaded", function () {
+        const currentYearSpan = document.getElementById("current-year");
+        currentYearSpan.textContent = new Date().getFullYear();
+      });
+  </script>
+  <!-- 网站统计 -->
+  <script async="" data-website-id="720737d7-b1e8-4e9f-926c-133409d58810" src="https://umami.hyx.ink/script.js">
+  </script>
+  <!-- 评论加载 -->
+  <script src="../static/loadCommentsThrottle.js">
+  </script>
+ </body>
+</html>

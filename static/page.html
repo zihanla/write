@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="$description$" />
+    <link rel="stylesheet" href="../static/style.css" />
+    <title>$title$</title>
+    <style>
+      header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 头部 -->
+    <header>
+      <h1>$title$</h1>
+      <a href="/">$author$</a>
+      <span>$date$</span>
+    </header>
+    <!-- 文章 -->
+    <article>$body$</article>
+    <!-- 评论 -->
+    <section id="comments" style="margin-top: 36px">
+      <div
+        id="cusdis_thread"
+        data-host="https://cusdis.hyx.ink"
+        data-app-id="c9edfd1e-80eb-4f19-bedc-69c5faea5a6d"
+        data-page-id="$slug$"
+        data-page-url="https://hyx.ink/post/$slug$"
+        data-page-title="$title$"
+      ></div>
+    </section>
+    <!-- 页脚 -->
+    <footer style="margin-top: 10px">
+      <p>
+        <span id="copyright">© 2021-<span id="current-year"></span> 子涵</span>
+        <a href="/rss.xml" target="_blank">RSS</a>
+      </p>
+    </footer>
+    <!-- 获取时间 -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const currentYearSpan = document.getElementById("current-year");
+        currentYearSpan.textContent = new Date().getFullYear();
+      });
+    </script>
+    <!-- 网站统计 -->
+    <script
+      async
+      src="https://umami.hyx.ink/script.js"
+      data-website-id="720737d7-b1e8-4e9f-926c-133409d58810"
+    ></script>
+    <!-- 评论加载 -->
+    <script src="../static/loadCommentsThrottle.js"></script>
+  </body>
+</html>

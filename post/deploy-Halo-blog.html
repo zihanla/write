@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="'## 前言'" name="description"/>
+  <link href="../static/style.css" rel="stylesheet"/>
+  <title>
+   一键部署Halo博客
+  </title>
+  <style>
+   header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+  </style>
+ </head>
+ <body>
+  <!-- 头部 -->
+  <header>
+   <h1>
+    一键部署Halo博客
+   </h1>
+   <a href="/">
+    子涵
+   </a>
+   <span>
+    2022-06-29
+   </span>
+  </header>
+  <!-- 文章 -->
+  <article>
+   <h2 id="前言">
+    前言
+   </h2>
+   <ul>
+    <li>
+     2023.4.11 使用 notion + nobelium + vercel 的形式部署博客
+    </li>
+    <li>
+     2022.12.30 halo 博客 2.0 时代了，不大喜欢了，转回
+typecho,目前教程仅对 halo1.5 及以下生效。
+    </li>
+   </ul>
+   <blockquote>
+    <p>
+     本文的目的是，让大家可以专注于写作本身；至于如何搭建，大道至简，全程跟着我的节奏，无脑
+CV 即可，不要纠结过程。
+    </p>
+   </blockquote>
+   <h2 id="安装">
+    安装
+   </h2>
+   <h3 id="利其器">
+    利其器
+   </h3>
+   <ul>
+    <li>
+     环境 Centos7.6
+    </li>
+    <li>
+     服务器管理工具
+     <a href="http://www.hostbuf.com/t/988.html">
+      FinalShell
+     </a>
+    </li>
+    <li>
+     写作工具
+     <a href="https://www.aliyundrive.com/drive/folder/6247c8ccaff7826206044d95874b4a6e0b666d53">
+      Typora
+     </a>
+    </li>
+    <li>
+     升级商店、安装下载工具
+    </li>
+   </ul>
+   <div class="sourceCode" id="cb1">
+    <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="co"># 升级yum管理包(升级应用商店 腾讯云等地方买的升级不是不必要)</span></span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a><span class="ex">yum</span> update</span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a><span class="co"># 安装wget</span></span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a><span class="ex">yum</span> install <span class="at">-y</span> wget</span></code></pre>
+   </div>
+   <p>
+    视频教程
+    <a href="https://www.bilibili.com/video/BV1NU4y1X7ai">
+     一键部署个人博客，专注写作本身
+    </a>
+   </p>
+   <h3 id="安装宝塔">
+    安装宝塔
+   </h3>
+   <blockquote>
+    <p>
+     7 系列的宝塔安装是需要登录的，这里借助 彩虹脚本 进行优化 （有需要输入
+y 的地方一路 y 下去）
+    </p>
+   </blockquote>
+   <div class="sourceCode" id="cb2">
+    <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a><span class="co"># 安装宝塔</span></span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-O</span> install.sh http://f.cccyun.cc/bt/install_6.0.sh <span class="kw">&amp;&amp;</span> <span class="fu">bash</span> install.sh</span>
+<span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a><span class="co"># 降级到7.7</span></span>
+<span id="cb2-4"><a aria-hidden="true" href="#cb2-4" tabindex="-1"></a><span class="ex">curl</span> http://f.cccyun.cc/bt/update6.sh<span class="kw">|</span><span class="fu">bash</span></span>
+<span id="cb2-5"><a aria-hidden="true" href="#cb2-5" tabindex="-1"></a><span class="co"># 优化脚本</span></span>
+<span id="cb2-6"><a aria-hidden="true" href="#cb2-6" tabindex="-1"></a><span class="fu">wget</span> <span class="at">-O</span> optimize.sh http://f.cccyun.cc/bt/optimize.sh <span class="kw">&amp;&amp;</span> <span class="fu">bash</span> optimize.sh</span></code></pre>
+   </div>
+   <h3 id="安装-docker-容器">
+    安装 Docker 容器
+   </h3>
+   <blockquote>
+    <p>
+     参考 菜鸟笔记 （有需要输入 y 的地方一路 y 下去）
+    </p>
+   </blockquote>
+   <div class="sourceCode" id="cb3">
+    <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a aria-hidden="true" href="#cb3-1" tabindex="-1"></a><span class="co"># 使用官方脚本自动安装Docker</span></span>
+<span id="cb3-2"><a aria-hidden="true" href="#cb3-2" tabindex="-1"></a><span class="ex">curl</span> <span class="at">-fsSL</span> https://get.docker.com <span class="kw">|</span> <span class="fu">bash</span> <span class="at">-s</span> docker <span class="at">--mirror</span> Aliyun</span>
+<span id="cb3-3"><a aria-hidden="true" href="#cb3-3" tabindex="-1"></a><span class="co"># 启动Docker</span></span>
+<span id="cb3-4"><a aria-hidden="true" href="#cb3-4" tabindex="-1"></a><span class="fu">sudo</span> systemctl start docker</span>
+<span id="cb3-5"><a aria-hidden="true" href="#cb3-5" tabindex="-1"></a><span class="co"># 测试是否安装成功</span></span>
+<span id="cb3-6"><a aria-hidden="true" href="#cb3-6" tabindex="-1"></a> <span class="fu">sudo</span> docker run hello-world</span></code></pre>
+   </div>
+   <h3 id="使用-docker-部署-halo">
+    使用 Docker 部署 Halo
+   </h3>
+   <p>
+    Halo 官方文档
+    <a href="https://docs.halo.run/getting-started/install/docker">
+     使用 Docker
+部署 Halo
+    </a>
+    超级详细，我们直接跟着官方的来就行了
+   </p>
+   <h3 id="反向代理">
+    反向代理
+   </h3>
+   <blockquote>
+    <p>
+     登录宝塔，推荐安装 LNMP 时，只需选择安装
+Nginx；安装完成后点击网站建一个站点,配置对应域名的 SSL 证书,并强制开启
+https；然后在配置文件添加反代脚本即可。
+    </p>
+   </blockquote>
+   <pre><code>  # 需要注释掉的地方(大概在40多行): Ctrl + / 选中当前内容一键注释
+  # location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
+  # {
+  #     expires      30d;
+  #     error_log /dev/null;
+  #     access_log /dev/null;
+  # }
+
+  # location ~ .*\.(js|css)?$
+  # {
+  #     expires      12h;
+  #     error_log /dev/null;
+  #     access_log /dev/null;
+  # }
+
+  # 反代脚本:
+     location / {
+  proxy_pass http://127.0.0.1:8090/;
+  rewrite ^/(.*)$ /$1 break;
+  proxy_redirect off;
+  proxy_set_header Host $host;
+  proxy_set_header X-Forwarded-Proto $scheme;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header Upgrade-Insecure-Requests 1;
+  proxy_set_header X-Forwarded-Proto https;
+}
+</code></pre>
+   <h3 id="主题推荐">
+    主题推荐
+   </h3>
+   <blockquote>
+    <p>
+     位置不分前后，推荐的主题都是有在更新的，基本都用过，主题仓库的可以不用看了
+    </p>
+   </blockquote>
+   <ul>
+    <li>
+     简洁风格
+     <ul>
+      <li>
+       <a href="https://github.com/liaocp666/halo-theme-daisy">
+        daisy
+       </a>
+      </li>
+      <li>
+       <a href="https://halo.run/archives/theme-xue.html">
+        Xue
+       </a>
+      </li>
+      <li>
+       <a href="https://rz.sbl/">
+        若至随笔
+       </a>
+       还没发出来不过超
+      </li>
+      <li>
+       <a href="https://github.com/Pedro-null/halo-theme-hingle">
+        hingle
+       </a>
+      </li>
+      <li>
+       <a href="https://halo.run/archives/materialyour.html">
+        MaterialYour
+       </a>
+      </li>
+      <li>
+       <a href="https://github.com/halo-dev/halo-theme-anatole">
+        anatole
+       </a>
+      </li>
+      <li>
+       <a href="https://github.com/guqing/halo-theme-higan">
+        彼岸
+       </a>
+      </li>
+      <li>
+       <a href="https://github.com/iRoZhi/Halo-vCards-theme">
+        vCards
+       </a>
+      </li>
+      <li>
+       <a href="https://halo.run/archives/butterfly.html">
+        Butterfly
+       </a>
+      </li>
+     </ul>
+    </li>
+    <li>
+     功能型
+     <ul>
+      <li>
+       <a href="https://halo.run/archives/dream.html">
+        Dream
+       </a>
+       功能超级多，关闭了大量功能后，称得上简洁
+      </li>
+      <li>
+       <a href="https://halo.run/archives/joe20.html">
+        Joe
+       </a>
+      </li>
+      <li>
+       <a href="https://halo.run/archives/theme-sakura.html">
+        Sakura
+       </a>
+      </li>
+      <li>
+       <a href="https://blog.xinac.cn/">
+        新逸 Cary
+       </a>
+      </li>
+     </ul>
+    </li>
+   </ul>
+   <h2 id="结束语">
+    结束语
+   </h2>
+   <p>
+    大道至简，愿大家不要因为乱七八糟的东西，忘记了本来的目的，就像写作。
+   </p>
+  </article>
+  <!-- 评论 -->
+  <section id="comments" style="margin-top: 36px">
+   <div data-app-id="c9edfd1e-80eb-4f19-bedc-69c5faea5a6d" data-host="https://cusdis.hyx.ink" data-page-id="deploy-Halo-blog" data-page-title="一键部署Halo博客" data-page-url="https://hyx.ink/post/deploy-Halo-blog" id="cusdis_thread">
+   </div>
+  </section>
+  <!-- 页脚 -->
+  <footer style="margin-top: 10px">
+   <p>
+    <span id="copyright">
+     © 2021-
+     <span id="current-year">
+     </span>
+     子涵
+    </span>
+    <a href="/rss.xml" target="_blank">
+     RSS
+    </a>
+   </p>
+  </footer>
+  <!-- 获取时间 -->
+  <script>
+   document.addEventListener("DOMContentLoaded", function () {
+        const currentYearSpan = document.getElementById("current-year");
+        currentYearSpan.textContent = new Date().getFullYear();
+      });
+  </script>
+  <!-- 网站统计 -->
+  <script async="" data-website-id="720737d7-b1e8-4e9f-926c-133409d58810" src="https://umami.hyx.ink/script.js">
+  </script>
+  <!-- 评论加载 -->
+  <script src="../static/loadCommentsThrottle.js">
+  </script>
+ </body>
+</html>

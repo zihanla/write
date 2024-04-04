@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="'&gt; nvm 允许不同版本 node
+共存并切换'" name="description"/>
+  <link href="../static/style.css" rel="stylesheet"/>
+  <title>
+   使用nvm管理node版本
+  </title>
+  <style>
+   header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+  </style>
+ </head>
+ <body>
+  <!-- 头部 -->
+  <header>
+   <h1>
+    使用nvm管理node版本
+   </h1>
+   <a href="/">
+    子涵
+   </a>
+   <span>
+    2022-12-16
+   </span>
+  </header>
+  <!-- 文章 -->
+  <article>
+   <blockquote>
+    <p>
+     nvm 允许不同版本 node 共存并切换
+    </p>
+   </blockquote>
+   <p>
+    我主要用于解决拉取的项目，包与 node 版本之间的冲突
+   </p>
+   <h3 id="下载">
+    下载
+   </h3>
+   <p>
+    <a href="https://github.com/coreybutler/nvm-windows/releases">
+     nvm-setup
+    </a>
+   </p>
+   <h3 id="安装">
+    安装
+   </h3>
+   <p>
+    清空电脑上之前的 node 后，无脑下一步，注意 nvm 和 node
+的安装位置，忘记了可以去环境变量里找 NVM_HOME、NVM_SYMLINK
+   </p>
+   <h3 id="设置源">
+    设置源
+   </h3>
+   <p>
+    去 nvm 的安装位置找到 settings.txt，在后面添加源
+   </p>
+   <div class="sourceCode" id="cb1">
+    <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="ex">node_mirror:</span> https://npm.taobao.org/mirrors/node/</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a><span class="ex">npm_mirror:</span> https://npm.taobao.org/mirrors/npm/6</span></code></pre>
+   </div>
+   <p>
+    npm 的源可以用 nrm 管理：
+    <a href="https://hyx.ink/13">
+     npm
+日常笔记
+    </a>
+   </p>
+   <h3 id="使用">
+    使用
+   </h3>
+   <div class="sourceCode" id="cb2">
+    <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a><span class="ex">//</span> 查看版本</span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a><span class="ex">nvm</span> <span class="at">-v</span></span>
+<span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a><span class="ex">//</span> 显示可安装的node版本</span>
+<span id="cb2-4"><a aria-hidden="true" href="#cb2-4" tabindex="-1"></a><span class="ex">nvm</span> list available</span>
+<span id="cb2-5"><a aria-hidden="true" href="#cb2-5" tabindex="-1"></a><span class="ex">//</span> 安装指定版本node</span>
+<span id="cb2-6"><a aria-hidden="true" href="#cb2-6" tabindex="-1"></a><span class="ex">nvm</span> install 版本号</span>
+<span id="cb2-7"><a aria-hidden="true" href="#cb2-7" tabindex="-1"></a><span class="ex">//</span> 卸载指定版本的node</span>
+<span id="cb2-8"><a aria-hidden="true" href="#cb2-8" tabindex="-1"></a><span class="ex">nvm</span> uninstall 版本号</span>
+<span id="cb2-9"><a aria-hidden="true" href="#cb2-9" tabindex="-1"></a><span class="ex">//</span> 切换指定版本node</span>
+<span id="cb2-10"><a aria-hidden="true" href="#cb2-10" tabindex="-1"></a><span class="ex">mvm</span> use 版本号</span></code></pre>
+   </div>
+  </article>
+  <!-- 评论 -->
+  <section id="comments" style="margin-top: 36px">
+   <div data-app-id="c9edfd1e-80eb-4f19-bedc-69c5faea5a6d" data-host="https://cusdis.hyx.ink" data-page-id="use-nvm-manage-node" data-page-title="使用nvm管理node版本" data-page-url="https://hyx.ink/post/use-nvm-manage-node" id="cusdis_thread">
+   </div>
+  </section>
+  <!-- 页脚 -->
+  <footer style="margin-top: 10px">
+   <p>
+    <span id="copyright">
+     © 2021-
+     <span id="current-year">
+     </span>
+     子涵
+    </span>
+    <a href="/rss.xml" target="_blank">
+     RSS
+    </a>
+   </p>
+  </footer>
+  <!-- 获取时间 -->
+  <script>
+   document.addEventListener("DOMContentLoaded", function () {
+        const currentYearSpan = document.getElementById("current-year");
+        currentYearSpan.textContent = new Date().getFullYear();
+      });
+  </script>
+  <!-- 网站统计 -->
+  <script async="" data-website-id="720737d7-b1e8-4e9f-926c-133409d58810" src="https://umami.hyx.ink/script.js">
+  </script>
+  <!-- 评论加载 -->
+  <script src="../static/loadCommentsThrottle.js">
+  </script>
+ </body>
+</html>

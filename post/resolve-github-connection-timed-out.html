@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="'&gt; git clone github
+仓库出问题了，记录下解决方案'" name="description"/>
+  <link href="../static/style.css" rel="stylesheet"/>
+  <title>
+   解决github连接超时问题
+  </title>
+  <style>
+   header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+  </style>
+ </head>
+ <body>
+  <!-- 头部 -->
+  <header>
+   <h1>
+    解决github连接超时问题
+   </h1>
+   <a href="/">
+    子涵
+   </a>
+   <span>
+    2022-09-11
+   </span>
+  </header>
+  <!-- 文章 -->
+  <article>
+   <blockquote>
+    <p>
+     git clone github 仓库出问题了，记录下解决方案
+    </p>
+   </blockquote>
+   <h2 id="报错信息">
+    报错信息
+   </h2>
+   <pre><code>Failed to connect to github.com port 443: Operation timed out
+</code></pre>
+   <h2 id="解决方案">
+    解决方案
+   </h2>
+   <blockquote>
+    <p>
+     针对科学上网的解决方案
+    </p>
+   </blockquote>
+   <div class="sourceCode" id="cb2">
+    <pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> http.proxy http://127.0.0.1:7890</span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a><span class="fu">git</span> config <span class="at">--global</span> https.proxy http://127.0.0.1:7890</span></code></pre>
+   </div>
+   <p>
+    Tip: 不同的代理软件端口号不同，clash 默认是
+7890；具体情况看代理软件设置，或者找网络和 Internet &gt;代理 &gt;
+手动设置代理 里面可以查到(win10、11 其它自行百度)。
+   </p>
+  </article>
+  <!-- 评论 -->
+  <section id="comments" style="margin-top: 36px">
+   <div data-app-id="c9edfd1e-80eb-4f19-bedc-69c5faea5a6d" data-host="https://cusdis.hyx.ink" data-page-id="resolve-github-connection-timed-out" data-page-title="解决github连接超时问题" data-page-url="https://hyx.ink/post/resolve-github-connection-timed-out" id="cusdis_thread">
+   </div>
+  </section>
+  <!-- 页脚 -->
+  <footer style="margin-top: 10px">
+   <p>
+    <span id="copyright">
+     © 2021-
+     <span id="current-year">
+     </span>
+     子涵
+    </span>
+    <a href="/rss.xml" target="_blank">
+     RSS
+    </a>
+   </p>
+  </footer>
+  <!-- 获取时间 -->
+  <script>
+   document.addEventListener("DOMContentLoaded", function () {
+        const currentYearSpan = document.getElementById("current-year");
+        currentYearSpan.textContent = new Date().getFullYear();
+      });
+  </script>
+  <!-- 网站统计 -->
+  <script async="" data-website-id="720737d7-b1e8-4e9f-926c-133409d58810" src="https://umami.hyx.ink/script.js">
+  </script>
+  <!-- 评论加载 -->
+  <script src="../static/loadCommentsThrottle.js">
+  </script>
+ </body>
+</html>

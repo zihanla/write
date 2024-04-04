@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="'&gt; 学 C、Java
+时都没有能力了解线程相关的东西(我是菜鸡)，玩 go
+时终于可以体验以下了(实现简单)。'" name="description"/>
+  <link href="../static/style.css" rel="stylesheet"/>
+  <title>
+   来自go并发的魅力
+  </title>
+  <style>
+   header {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+  </style>
+ </head>
+ <body>
+  <!-- 头部 -->
+  <header>
+   <h1>
+    来自go并发的魅力
+   </h1>
+   <a href="/">
+    子涵
+   </a>
+   <span>
+    2022-09-27
+   </span>
+  </header>
+  <!-- 文章 -->
+  <article>
+   <blockquote>
+    <p>
+     学 C、Java 时都没有能力了解线程相关的东西(我是菜鸡)，玩 go
+时终于可以体验以下了(实现简单)。
+    </p>
+   </blockquote>
+   <h2 id="简单认识">
+    简单认识
+   </h2>
+   <blockquote>
+    <p>
+     假设你要做两件事：洗衣服、做饭，下面是三种方案
+    </p>
+   </blockquote>
+   <ul>
+    <li>
+     串行：先洗完衣服再做饭，或者先做饭再洗衣服
+    </li>
+    <li>
+     并发：洗会儿衣服，做会儿饭，直到都搞完(先后顺序不定，两边跑，想到啥搞啥，情景自己脑补)
+    </li>
+    <li>
+     并行：在厨房洗衣服，一只手做饭，一只手洗衣服
+    </li>
+   </ul>
+   <h2 id="栗子-1.0">
+    栗子 1.0
+   </h2>
+   <div class="sourceCode" id="cb1">
+    <pre class="sourceCode go"><code class="sourceCode go"><span id="cb1-1"><a aria-hidden="true" href="#cb1-1" tabindex="-1"></a><span class="kw">package</span> main</span>
+<span id="cb1-2"><a aria-hidden="true" href="#cb1-2" tabindex="-1"></a></span>
+<span id="cb1-3"><a aria-hidden="true" href="#cb1-3" tabindex="-1"></a><span class="kw">import</span> <span class="op">(</span></span>
+<span id="cb1-4"><a aria-hidden="true" href="#cb1-4" tabindex="-1"></a>    <span class="st">"fmt"</span></span>
+<span id="cb1-5"><a aria-hidden="true" href="#cb1-5" tabindex="-1"></a>    <span class="st">"time"</span></span>
+<span id="cb1-6"><a aria-hidden="true" href="#cb1-6" tabindex="-1"></a><span class="op">)</span></span>
+<span id="cb1-7"><a aria-hidden="true" href="#cb1-7" tabindex="-1"></a></span>
+<span id="cb1-8"><a aria-hidden="true" href="#cb1-8" tabindex="-1"></a><span class="kw">func</span> do1<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-9"><a aria-hidden="true" href="#cb1-9" tabindex="-1"></a>    time<span class="op">.</span>Sleep<span class="op">(</span><span class="dv">1</span> <span class="op">*</span> time<span class="op">.</span>Second<span class="op">)</span></span>
+<span id="cb1-10"><a aria-hidden="true" href="#cb1-10" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span><span class="st">"暂停1s"</span><span class="op">)</span></span>
+<span id="cb1-11"><a aria-hidden="true" href="#cb1-11" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-12"><a aria-hidden="true" href="#cb1-12" tabindex="-1"></a></span>
+<span id="cb1-13"><a aria-hidden="true" href="#cb1-13" tabindex="-1"></a><span class="kw">func</span> do2<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-14"><a aria-hidden="true" href="#cb1-14" tabindex="-1"></a>    time<span class="op">.</span>Sleep<span class="op">(</span><span class="dv">2</span> <span class="op">*</span> time<span class="op">.</span>Second<span class="op">)</span></span>
+<span id="cb1-15"><a aria-hidden="true" href="#cb1-15" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span><span class="st">"暂停2s"</span><span class="op">)</span></span>
+<span id="cb1-16"><a aria-hidden="true" href="#cb1-16" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb1-17"><a aria-hidden="true" href="#cb1-17" tabindex="-1"></a></span>
+<span id="cb1-18"><a aria-hidden="true" href="#cb1-18" tabindex="-1"></a><span class="kw">func</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-19"><a aria-hidden="true" href="#cb1-19" tabindex="-1"></a>    <span class="co">// 开始时间</span></span>
+<span id="cb1-20"><a aria-hidden="true" href="#cb1-20" tabindex="-1"></a>    start <span class="op">:=</span> time<span class="op">.</span>Now<span class="op">()</span></span>
+<span id="cb1-21"><a aria-hidden="true" href="#cb1-21" tabindex="-1"></a>    <span class="co">// 分别执行do1、2, 五次</span></span>
+<span id="cb1-22"><a aria-hidden="true" href="#cb1-22" tabindex="-1"></a>    <span class="cf">for</span> i <span class="op">:=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">;</span> i<span class="op">++</span> <span class="op">{</span></span>
+<span id="cb1-23"><a aria-hidden="true" href="#cb1-23" tabindex="-1"></a>        do1<span class="op">()</span></span>
+<span id="cb1-24"><a aria-hidden="true" href="#cb1-24" tabindex="-1"></a>        do2<span class="op">()</span></span>
+<span id="cb1-25"><a aria-hidden="true" href="#cb1-25" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-26"><a aria-hidden="true" href="#cb1-26" tabindex="-1"></a></span>
+<span id="cb1-27"><a aria-hidden="true" href="#cb1-27" tabindex="-1"></a>    <span class="co">// 结束时间</span></span>
+<span id="cb1-28"><a aria-hidden="true" href="#cb1-28" tabindex="-1"></a>    end <span class="op">:=</span> time<span class="op">.</span>Now<span class="op">()</span></span>
+<span id="cb1-29"><a aria-hidden="true" href="#cb1-29" tabindex="-1"></a>    <span class="co">// 总耗时</span></span>
+<span id="cb1-30"><a aria-hidden="true" href="#cb1-30" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span><span class="st">"总耗时-&gt;"</span><span class="op">,</span> end<span class="op">.</span>Sub<span class="op">(</span>start<span class="op">))</span> <span class="co">// end.Sub(start) 开始时间 - 结束时间 = 总耗时-&gt; 15.0657871s</span></span>
+<span id="cb1-31"><a aria-hidden="true" href="#cb1-31" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+   </div>
+   <h2 id="栗子-2.0">
+    栗子 2.0
+   </h2>
+   <div class="sourceCode" id="cb2">
+    <pre class="sourceCode go"><code class="sourceCode go"><span id="cb2-1"><a aria-hidden="true" href="#cb2-1" tabindex="-1"></a><span class="kw">package</span> main</span>
+<span id="cb2-2"><a aria-hidden="true" href="#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a aria-hidden="true" href="#cb2-3" tabindex="-1"></a><span class="kw">import</span> <span class="op">(</span></span>
+<span id="cb2-4"><a aria-hidden="true" href="#cb2-4" tabindex="-1"></a>    <span class="st">"fmt"</span></span>
+<span id="cb2-5"><a aria-hidden="true" href="#cb2-5" tabindex="-1"></a>    <span class="st">"sync"</span></span>
+<span id="cb2-6"><a aria-hidden="true" href="#cb2-6" tabindex="-1"></a>    <span class="st">"time"</span></span>
+<span id="cb2-7"><a aria-hidden="true" href="#cb2-7" tabindex="-1"></a><span class="op">)</span></span>
+<span id="cb2-8"><a aria-hidden="true" href="#cb2-8" tabindex="-1"></a></span>
+<span id="cb2-9"><a aria-hidden="true" href="#cb2-9" tabindex="-1"></a><span class="co">// sync.waitGroup</span></span>
+<span id="cb2-10"><a aria-hidden="true" href="#cb2-10" tabindex="-1"></a><span class="kw">var</span> wg sync<span class="op">.</span>WaitGroup</span>
+<span id="cb2-11"><a aria-hidden="true" href="#cb2-11" tabindex="-1"></a></span>
+<span id="cb2-12"><a aria-hidden="true" href="#cb2-12" tabindex="-1"></a><span class="kw">func</span> do1<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-13"><a aria-hidden="true" href="#cb2-13" tabindex="-1"></a>    <span class="cf">defer</span> wg<span class="op">.</span>Done<span class="op">()</span></span>
+<span id="cb2-14"><a aria-hidden="true" href="#cb2-14" tabindex="-1"></a>    time<span class="op">.</span>Sleep<span class="op">(</span><span class="dv">1</span> <span class="op">*</span> time<span class="op">.</span>Second<span class="op">)</span></span>
+<span id="cb2-15"><a aria-hidden="true" href="#cb2-15" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span><span class="st">"暂停1s"</span><span class="op">)</span></span>
+<span id="cb2-16"><a aria-hidden="true" href="#cb2-16" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-17"><a aria-hidden="true" href="#cb2-17" tabindex="-1"></a></span>
+<span id="cb2-18"><a aria-hidden="true" href="#cb2-18" tabindex="-1"></a><span class="kw">func</span> do2<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-19"><a aria-hidden="true" href="#cb2-19" tabindex="-1"></a>    <span class="cf">defer</span> wg<span class="op">.</span>Done<span class="op">()</span> <span class="co">// wg.Add(-1) 计数器值 -1</span></span>
+<span id="cb2-20"><a aria-hidden="true" href="#cb2-20" tabindex="-1"></a>    time<span class="op">.</span>Sleep<span class="op">(</span><span class="dv">2</span> <span class="op">*</span> time<span class="op">.</span>Second<span class="op">)</span></span>
+<span id="cb2-21"><a aria-hidden="true" href="#cb2-21" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span><span class="st">"暂停2s"</span><span class="op">)</span></span>
+<span id="cb2-22"><a aria-hidden="true" href="#cb2-22" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb2-23"><a aria-hidden="true" href="#cb2-23" tabindex="-1"></a></span>
+<span id="cb2-24"><a aria-hidden="true" href="#cb2-24" tabindex="-1"></a><span class="kw">func</span> main<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb2-25"><a aria-hidden="true" href="#cb2-25" tabindex="-1"></a>    <span class="co">// 开始时间</span></span>
+<span id="cb2-26"><a aria-hidden="true" href="#cb2-26" tabindex="-1"></a>    start <span class="op">:=</span> time<span class="op">.</span>Now<span class="op">()</span></span>
+<span id="cb2-27"><a aria-hidden="true" href="#cb2-27" tabindex="-1"></a>    <span class="co">// 分别执行do1、2, 五次</span></span>
+<span id="cb2-28"><a aria-hidden="true" href="#cb2-28" tabindex="-1"></a>    <span class="cf">for</span> i <span class="op">:=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">5</span><span class="op">;</span> i<span class="op">++</span> <span class="op">{</span></span>
+<span id="cb2-29"><a aria-hidden="true" href="#cb2-29" tabindex="-1"></a>        wg<span class="op">.</span>Add<span class="op">(</span><span class="dv">2</span><span class="op">)</span> <span class="co">// 执行两个并发任务,计数器值 +2</span></span>
+<span id="cb2-30"><a aria-hidden="true" href="#cb2-30" tabindex="-1"></a>        <span class="cf">go</span> do1<span class="op">()</span></span>
+<span id="cb2-31"><a aria-hidden="true" href="#cb2-31" tabindex="-1"></a>        <span class="cf">go</span> do2<span class="op">()</span></span>
+<span id="cb2-32"><a aria-hidden="true" href="#cb2-32" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb2-33"><a aria-hidden="true" href="#cb2-33" tabindex="-1"></a>    wg<span class="op">.</span>Wait<span class="op">()</span> <span class="co">// 阻塞  直到上面程序结束(计数器值为0) 然后继续执行下面程序</span></span>
+<span id="cb2-34"><a aria-hidden="true" href="#cb2-34" tabindex="-1"></a>    <span class="co">// 结束时间</span></span>
+<span id="cb2-35"><a aria-hidden="true" href="#cb2-35" tabindex="-1"></a>    end <span class="op">:=</span> time<span class="op">.</span>Now<span class="op">()</span></span>
+<span id="cb2-36"><a aria-hidden="true" href="#cb2-36" tabindex="-1"></a>    <span class="co">// 总耗时</span></span>
+<span id="cb2-37"><a aria-hidden="true" href="#cb2-37" tabindex="-1"></a>    fmt<span class="op">.</span>Println<span class="op">(</span><span class="st">"总耗时-&gt;"</span><span class="op">,</span> end<span class="op">.</span>Sub<span class="op">(</span>start<span class="op">))</span> <span class="co">// end.Sub(start) 开始时间 - 结束时间 = 总耗时-&gt; 2.010531s</span></span>
+<span id="cb2-38"><a aria-hidden="true" href="#cb2-38" tabindex="-1"></a><span class="op">}</span></span></code></pre>
+   </div>
+   <blockquote>
+    <p>
+     原作者 zxysilent ，很形象所以拿过来，方便理解
+    </p>
+   </blockquote>
+   <ul>
+    <li>
+     <a href="https://blog.zxysilent.com/post/goweb-03-6.html">
+      来源
+     </a>
+    </li>
+   </ul>
+  </article>
+  <!-- 评论 -->
+  <section id="comments" style="margin-top: 36px">
+   <div data-app-id="c9edfd1e-80eb-4f19-bedc-69c5faea5a6d" data-host="https://cusdis.hyx.ink" data-page-id="go-concurrency" data-page-title="来自go并发的魅力" data-page-url="https://hyx.ink/post/go-concurrency" id="cusdis_thread">
+   </div>
+  </section>
+  <!-- 页脚 -->
+  <footer style="margin-top: 10px">
+   <p>
+    <span id="copyright">
+     © 2021-
+     <span id="current-year">
+     </span>
+     子涵
+    </span>
+    <a href="/rss.xml" target="_blank">
+     RSS
+    </a>
+   </p>
+  </footer>
+  <!-- 获取时间 -->
+  <script>
+   document.addEventListener("DOMContentLoaded", function () {
+        const currentYearSpan = document.getElementById("current-year");
+        currentYearSpan.textContent = new Date().getFullYear();
+      });
+  </script>
+  <!-- 网站统计 -->
+  <script async="" data-website-id="720737d7-b1e8-4e9f-926c-133409d58810" src="https://umami.hyx.ink/script.js">
+  </script>
+  <!-- 评论加载 -->
+  <script src="../static/loadCommentsThrottle.js">
+  </script>
+ </body>
+</html>

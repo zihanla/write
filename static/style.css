@@ -1,0 +1,91 @@
+html {
+  /* 滚动条 */
+  scrollbar-color: rgb(170, 170, 170) #fff;
+  scrollbar-width: thin;
+}
+
+body {
+  font-family: "Microsoft YaHei", "宋体", sans-serif; /* 使用适合中文网站的宋体或微软雅黑 */
+  line-height: 1.75;
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 0 10px;
+  word-wrap: break-word;
+  color: #363636;
+  background: #fff;
+  text-rendering: optimizeLegibility; /* 提高文本的可读性 */
+  font-size: 18px;
+}
+
+header h1 {
+  margin: 10px 0;
+}
+
+header a,
+header span,
+footer a,
+footer span,
+figcaption {
+  font-size: 16px;
+}
+
+header span,
+footer span {
+  color: #999; /* 统一<span>标签和链接的颜色 */
+}
+
+a {
+  text-decoration: none;
+  color: #0076d1; /* 链接文字的常规颜色 */
+}
+a:hover {
+  text-decoration: underline;
+}
+
+blockquote {
+  padding-left: 10px;
+  border-left: 3px solid #363636; /* 突出显示引用块 */
+  margin: 16px 0;
+}
+
+pre {
+  background: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  word-break: normal; /* 保持代码的原始格式 */
+  white-space: pre-wrap; /* 允许自动换行 */
+}
+
+pre > code {
+  padding: 20px;
+  background-color: #f3f3f3; /* 代码块背景颜色 */
+  display: block;
+  overflow-x: auto; /* 如果代码过长，横向滚动 */
+}
+
+code {
+  background: #f3f3f3;
+  color: #000;
+  padding: 2.5px 5px;
+  border-radius: 6px;
+}
+
+/* 限制图片视频大小为容器大小 */
+img,
+video {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ddd; /* 添加边框 */
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.1); /* 添加阴影 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 添加过渡效果 */
+}
+
+/* 图片下面的注脚 */
+figcaption {
+  text-align: center;
+  color: #999;
+  font-size: 16px; /* 设置注脚字体大小 */
+  max-width: 80%; /* 限制注脚最大宽度 */
+  margin: 8px auto; /* 上下间距 */
+  /*  */
+}
