@@ -262,6 +262,7 @@ def main():
         json.dump(last_hashes, f)
 
     if need_update or post_meta_changed or is_first_run:
+        post_data = sort_posts(post_data)  # 对文章数据进行排序
         update_index(post_data, index_html_path)
         generate_rss(post_data, root_dir, "https://hyx.ink")
         logging.info("首页和RSS feed已更新。")
